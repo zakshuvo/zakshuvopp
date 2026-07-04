@@ -44,8 +44,17 @@ def extract_video_id(url_or_id: str) -> str:
 def fetch_free(video_id: str) -> str:
     from youtube_transcript_api import YouTubeTranscriptApi
 
-    transcript = YouTubeTranscriptApi.get_transcript(video_id)
-    return "\n".join(f"[{seg['start']:.1f}s] {seg['text']}" for seg in transcript)
+    # youtube-transcript-api v1.0+ switched to an instance-based API
+    # (YouTubeTranscriptApi().fetch(...)) instead of the old classmethod
+    # (YouTubeTranscriptApi.get_transcript(...)). Support both so this
+    # script works regardless of which version is installed.
+    if hasattr(YouTubeTranscriptApi, "get_transcript"):
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        return "\n".join(f"[{seg['start']:.1f}s] {seg['text']}" for seg in transcript)
+    else:
+        api = YouTubeTranscriptApi()
+        fetched = api.fetch(video_id)
+        return "\n".join(f"[{seg.start:.1f}s] {seg.text}" for seg in fetched)
 
 
 def fetch_supadata(video_id: str) -> str:
