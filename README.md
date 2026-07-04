@@ -111,3 +111,8 @@ fact-check against, not treated as expert sources.
 4. Look for agreement/disagreement patterns across the 10 (e.g., everyone agrees
    human review is non-negotiable for YMYL content; disagreement on how much
    AI-generated first-draft is acceptable).
+
+## Limitations
+
+- Most experts have both YouTube and LinkedIn sources.
+- Chris Long has limited publicly available long-form YouTube content. Therefore, his research is based primarily on LinkedIn posts and published articles.
